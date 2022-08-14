@@ -1,25 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { CircularProgress, Container } from '@chakra-ui/react';
+import axios from 'axios';
+import { useQuery } from 'react-query';
+import AuthForm from 'src/forms/AuthForm';
+import { useAppContext } from 'src/context';
+import Todos from 'src/modules/Todos';
+import AppModal from 'src/components/AppModal';
 
 function App() {
+  const {
+    User: [user, setUser],
+  } = useAppContext();
+
+  const { isLoading } = useQuery('get-user', async () => await axios.get('/users'), {
+    onSuccess: ({ data }) => {
+      setUser(data.user);
+    },
+  });
+
+  if (isLoading)
+    return (
+      <Container centerContent minHeight="100vh">
+        <CircularProgress isIndeterminate color="green.300" margin="auto" />;
+      </Container>
+    );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container centerContent maxWidth="7xl" minHeight="100vh">
+      <AppModal />
+      {user ? <Todos /> : <AuthForm />}
+    </Container>
   );
 }
 
