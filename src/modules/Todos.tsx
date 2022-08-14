@@ -20,7 +20,7 @@ export default function Todos() {
 
       <Tooltip
         {...{ isOpen: empty, placement: 'left', p: '10px' }}
-        label="You have no todos yet, click here to add one! >"
+        label="You have no todos yet, add one here 👉"
       >
         <AddTodoButton
           {...{ size: 'lg', isRound: true, 'aria-label': 'Add Todo' }}
