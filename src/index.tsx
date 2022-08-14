@@ -7,10 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ChakraProvider } from '@chakra-ui/react';
 import { ContextProvider } from 'src/context';
 
-axios.defaults.baseURL =
-  process.env.NODE_ENV === 'development'
-    ? process.env.REACT_APP_DEV_SERVER_BASE_URL
-    : process.env.REACT_APP_PROD_SERVER_BASE_URL;
+axios.defaults.baseURL = 'https://offshorly-crud-app-server.herokuapp.com/api/';
 
 axios.defaults.withCredentials = true;
 
