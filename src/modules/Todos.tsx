@@ -7,8 +7,11 @@ import { useAppContext } from 'src/context';
 export default function Todos() {
   const {
     User: [user],
+    Modal: [modal],
   } = useAppContext();
   const todos: TodoProps[] = user.todos;
+  const { open } = modal;
+
   const empty: boolean = todos.length === 0;
 
   return (
@@ -19,7 +22,7 @@ export default function Todos() {
       />
 
       <Tooltip
-        {...{ isOpen: empty, placement: 'left', p: '10px' }}
+        {...{ isOpen: empty && !open, placement: 'left', p: '10px' }}
         label="You have no todos yet, add one here 👉"
       >
         <AddTodoButton
